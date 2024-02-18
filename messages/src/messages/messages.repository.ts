@@ -1,7 +1,9 @@
+import { Injectable } from '@nestjs/common';
 import { readFile, writeFile } from 'fs/promises';
 
-// 항상 messages.json이 존재한다는 가정 하에 진행
+@Injectable() // 이 class를 DI 컨테이너에 등록하기 위해 표시
 export class MessagesRepository {
+  // 항상 messages.json이 존재한다는 가정 하에 진행
   async findOne(id: string) {
     // 1. 파일의 콘텐츠 읽기
     const contents = await readFile('messages.json', 'utf8'); // utf8 인코딩 사용

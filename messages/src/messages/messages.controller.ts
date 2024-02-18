@@ -14,12 +14,13 @@ import { MessagesService } from './messages.service';
 export class MessagesController {
   // 라우터 핸들러 역할을 할 메소드들 구현
 
-  messagesService: MessagesService;
-
-  // DONT DO THIS ON REAL APP
-  // USE DEPENDENCY INJECTION
-  constructor() {
-    this.messagesService = new MessagesService(); //Todo 나중에 의존성 주입 시스템으로 변경
+  //* 컨트롤러는 Injectable 데코레이터를 써주지 않아도 됨
+  //* 컨트롤러는 소비만 하기 때문 -> 컨트롤러는 자동으로 인스턴스가 만들어짐
+  constructor(public messagesService: MessagesService) {
+    //! deprecated
+    // DONT DO THIS ON REAL APP
+    // USE DEPENDENCY INJECTION
+    // this.messagesService = new MessagesService();
   }
 
   @Get() // method 데코레이터 -> method 전체에 적용됨
@@ -45,7 +46,7 @@ export class MessagesController {
     // 만약, 존재하지 않는 id를 요청한 경우 404 띄우기
     if (!message) {
       // NotFoundException이란?
-      // Nest 자체 내부에 정의된 오류
+      // Nest 자체 내부에 정의된 오류 => HTTP 표준에 설정된 패턴을 따름
       throw new NotFoundException('message not found');
     }
 
