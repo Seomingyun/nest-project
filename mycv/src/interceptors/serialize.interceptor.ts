@@ -8,7 +8,6 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { plainToClass } from 'class-transformer';
-// import { UserDto } from 'src/users/dtos/user.dto';
 
 interface ClassConstructor {
   // 기본적으로 모든 class는 이 조건을 만족함
@@ -38,10 +37,6 @@ export class serializeInterceptor implements NestInterceptor {
 
     return next.handle().pipe(
       map((data: any) => {
-        // 리퀘스트 핸들러가 들어온 다음에 나가는 응답을 조작하고 싶다면 여기에 적어놓아야 함
-        console.log('Im running before response is sent out', data);
-
-        // 들어오는 data는 user instance
         return plainToClass(this.dto, data, {
           excludeExtraneousValues: true, // userDto 인스턴스를 기본 json으로 변환하려고 할 때마다 Expose라고 쓰인 속성만 공유됨
         });

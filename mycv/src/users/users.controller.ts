@@ -14,7 +14,6 @@ import {
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UsersService } from './users.service';
-// import { serializeInterceptor } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 
@@ -30,14 +29,10 @@ export class UsersController {
     this.usersService.create(body.email, body.password);
   }
 
-  // @UseInterceptors(ClassSerializerInterceptor)
-  // @UseInterceptors(new serializeInterceptor(UserDto)) // 너무 길음
-  // @Serialize(UserDto) // 커스텀 데코레이터
   @Get('/:id')
   async findUser(@Param('id') id: string) {
     // 요청을 통해서 들어오는 모든 param은 string임
     // 만약, service에서 다른 type을 원한다면 바꿔주어야 함
-    console.log('hander is running');
     const user = await this.usersService.findOne(parseInt(id));
 
     if (!user) {
