@@ -8,6 +8,8 @@ import {
 } from 'typeorm';
 // 이 3가지는 모두 데코레이터
 
+// import { Exclude } from 'class-transformer';
+
 @Entity()
 export class User {
   // UserEntity 이런 이름 X
@@ -19,6 +21,7 @@ export class User {
   email: string;
 
   @Column()
+  // @Exclude() // 사용자 인스턴스를 가지고 와서 일반 객체로 바꿀 때, 이 속성은 제외가 됨
   password: string;
 
   @AfterInsert()
